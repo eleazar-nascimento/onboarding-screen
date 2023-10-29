@@ -18,6 +18,21 @@ export function RenderItem({
 }: RenderItemProps) {
   const {width: SCREEN_WIDTH} = useWindowDimensions();
 
+  const lottieAnimationStyle = useAnimatedStyle(() => {
+    const translateYAnimation = interpolate(
+      x.value,
+      [
+        (index - 1) * SCREEN_WIDTH,
+        index * SCREEN_WIDTH,
+        (index + 1) * SCREEN_WIDTH,
+      ],
+      [200, 0, -200],
+    )
+    return {
+      transform: [{ translateY: translateYAnimation }]
+    }
+  })
+
   const circleAnimation = useAnimatedStyle(() => {
     const scale = interpolate(
       x.value,
@@ -46,14 +61,14 @@ export function RenderItem({
           }, circleAnimation]} 
         />
       </View>
-      <View>
-        <LottieView 
+      <Animated.View style={lottieAnimationStyle}>
+        <LottieView
           source={item.animation} 
           style={{ width: SCREEN_WIDTH * 0.9, height: SCREEN_WIDTH * 0.9  }} 
           autoPlay
           loop
         />
-      </View>
+      </Animated.View>
       <Text style={[styles.itemText, { color: item.textColor }]}>{item.text}</Text>
     </View>
   );
