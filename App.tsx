@@ -4,6 +4,7 @@ import { View, StyleSheet, FlatList, ViewToken } from "react-native";
 import data, { OnboardingData } from "./src/data/data";
 import { RenderItem } from "./src/components/RenderItem";
 import {Pagination} from "./src/components/Pagination";
+import { CustomButton } from "./src/components/CustomButton";
 
 export default function App() {
   const flatListRef = useAnimatedRef<FlatList<OnboardingData>>();
@@ -45,6 +46,12 @@ export default function App() {
       />
       <View style={styles.bottomContainer}>
         <Pagination data={data} x={x} />
+        <CustomButton 
+          flatlistRef={flatListRef}
+          flatlistIndex={flatListIndex}
+          dataLength={data.length}
+          x={x}
+        />
       </View>
     </View>
   );
@@ -60,6 +67,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     marginHorizontal: 30,
-    paddingVertical: 30
+    paddingVertical: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }
 })
